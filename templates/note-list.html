@@ -1,13 +1,15 @@
 {% extends 'base.html' %}
-{% block title %}个人笔记列表{% endblock %}
 {% load staticfiles %}
+{% block title %}个人笔记列表{% endblock %}
 {% block custom_bread %}
     <section>
         <div class="wp">
-            <ul  class="crumbs">
-                <li><a href="{% url 'index' %}">首页</a>></li>
-                <li>笔记列表</li>
-            </ul>
+            <div class="crumbs">
+                <ul>
+                    <li><a href="{% url 'index' %}">首页</a>></li>
+                    <li><a href="{% url 'notes:note_list' %}">笔记列表</a></li>
+                </ul>
+            </div>
         </div>
     </section>
 {% endblock %}
@@ -19,27 +21,29 @@
 			<div class="left layout">
 				<div class="head">
 					<ul class="tab_header">
-						<li class="{% ifequal sort '' %}active{% endifequal %}"><a href="?sort=">最新 </a></li>
-						<li class="{% ifequal sort 'hot' %}active{% endifequal %}"><a href="?sort=hot">最热门</a></li>
+						<li class="{% ifequal sort '' %}active{% endifequal %}"><a href="?sort=">公开最新 </a></li>
+						<li class="{% ifequal sort 'hot' %}active{% endifequal %}"><a href="?sort=hot">公开最热门</a></li>
+                        <li class="{% ifequal sort 'private' %}active{% endifequal %}"><a href="?sort=private">我的笔记</a></li>
+                        <li class=""><a href="{% url 'notes:new_editor' %}">新建笔记</a></li>
 					</ul>
 				</div>
                 <div id="inWindow">
                     <div class="tab_cont " id="content">
 					<div class="group_list">
-                        {% for note in all_notes %}
+                        {% for note in all_notes.object_list %}
                             <div class="box">
                                 <a href="{% url 'notes:note_detail' note.id %}">
                                     <img width="280" height="350" class="scrollLoading" src="{{ MEDIA_URL }}{{ note.image }}"/>
                                 </a>
                                 <div class="des">
-                                    <a href="">
+                                    <a href="{% url 'notes:note_detail' note.id %}">
                                         <h2>{{ note.name }}</h2>
                                     </a>
                                     <span class="fl">时间:{{ note.add_time }}<i class="key"></i></span>
                                     <span class="fr">点击次数:{{ note.click_nums }}&nbsp;&nbsp;</span>
                                 </div>
                                 <div class="bottom">
-                                    <a href=""><span class="fl">作者：{{ note.get_user.user.username }}</span></a>
+                                    <a href=""><span class="fl">作者：{{ note.author }}</span></a>
                                     <span class="star fr  notlogin
                                         " data-favid="15">
                                         1
@@ -48,15 +52,14 @@
                             </div>
                         {% endfor %}
 					</div>
-                    <!--
                     <div class="pageturn">
                         <ul class="pagelist">
-                            {% if all_courses.has_previous %}
-                                 <li class="long"><a href="?{{ all_courses.previous_page_number.querystring}}">上一页</a></li>
+                            {% if all_notes.has_previous %}
+                                 <li class="long"><a href="?{{ all_notes.previous_page_number.querystring}}">上一页</a></li>
                             {% endif %}
-                            {% for page in all_courses.pages %}
+                            {% for page in all_notes.pages %}
                                 {% if page %}
-                                    {% ifequal page all_courses.number %}
+                                    {% ifequal page all_notes.number %}
                                         <li class="active"><a href="?{{ page.querystring }}">{{ page }}</a></li>
                                     {% else %}
                                         <li><a href="?{{ page.querystring }}" class="page">{{ page }}</a></li>
@@ -65,12 +68,11 @@
                                      <li class="none"><a href="">...</a></li>
                                 {% endif %}
                             {% endfor %}
-                            {% if all_courses.has_next %}
-                                <li class="long"><a href="?{{ all_courses.next_page_number.querystring}}">下一页</a></li>
+                            {% if all_notes.has_next %}
+                                <li class="long"><a href="?{{ all_notes.next_page_number.querystring}}">下一页</a></li>
                             {% endif %}
                         </ul>
                     </div>
-                    -->
 				</div>
                 </div>
 			</div>

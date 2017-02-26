@@ -775,6 +775,7 @@ textarea:focus {
     color: #F83;
 }
 
+
 .groupbox01.dialogbox p, .groupbox02.dialogbox p {
     font-size: 14px;
     text-align: left;
@@ -2810,7 +2811,7 @@ footer .footer .line {
 }
 
 .list .group_list .box .des h2 {
-    font-size: 18px;
+    font-size: 15px;
     line-height: 30px;
 }
 
@@ -9114,3 +9115,15 @@ table .upload-btn {
     height:auto;
     left:auto;
 }
+
+strong{
+    color:#FF0000;
+}
+
+.form-group {
+    border-bottom: 1px solid #EEE;
+    background-color: #FBFBFB;
+    margin-top: 0px !important;
+    margin-bottom: 0px !important;
+}
+

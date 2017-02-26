@@ -20,49 +20,49 @@
 		<div  class=" header">
  			<div class="top">
 				<div class="wp">
-					<div class="fl"><p>服务电话：<b>33333333</b></p></div>
+					<div class="fl"><p>个人在线笔记</p></div>
 					<!--登录后跳转-->
 
                         {% if request.user.is_authenticated %}
                             <div class="personal">
                             <dl class="user fr">
-                                <dd>bobby<img class="down fr" src="{% static 'images/top_down.png' %}"/></dd>
-                                <dt><img width="20" height="20" src="../media/image/2016/12/default_big_14.png"/></dt>
+                                <dd>{{ request.user.nick_name }}<img class="down fr" src="{% static 'images/top_down.png' %}"/></dd>
+                                <dt><img width="20" height="20" src="{{ MEDIA_URL }}{{ request.user.image }}"/></dt>
                             </dl>
                             <div class="userdetail">
                             	<dl>
-	                                <dt><img width="80" height="80" src="../media/image/2016/12/default_big_14.png"/></dt>
+	                                <dt><img width="80" height="80" src="{{ MEDIA_URL }}{{ request.user.image }}"/></dt>
 	                                <dd>
-	                                    <h2>django</h2>
-	                                    <p>bobby</p>
+	                                    <h2>邮箱</h2>
+	                                    <p>{{ request.user.email }}</p>
 	                                </dd>
                                 </dl>
                                 <div class="btn">
-	                                <a class="personcenter fl" href="usercenter-info.html">进入个人中心</a>
-	                                <a class="fr" href="/logout/">退出</a>
+	                                <a class="personcenter fl" href="{% url 'users:user_info' %}">进入个人中心</a>
+	                                <a class="fr" href="{% url 'logout' %}">退出</a>
                                 </div>
                             </div>
-                        </div>
+                            </div>
                             {% else %}
-                            <a style="color:white" class="fr registerbtn" href="">注册</a>
-                            <a style="color:white" class="fr loginbtn" href="">登录</a>
-                        {% endif %}  }
+                            <a style="color:white" class="fr registerbtn" href="register">注册</a>
+                            <a style="color:white" class="fr loginbtn" href="{% url 'login' %}">登录</a>
+                        {% endif %}
 
 				</div>
 			</div>
 
             <div class="middle">
                 <div class="wp">
-                    <a href="index.html"><img class="fl" src="{% static 'images/logo.png' %}"/></a>
+                    <a href=""><img class="fl" src="{% static 'images/logo.png' %}"/></a>
                     <div class="searchbox fr">
                         <div class="selectContainer fl">
-                            <span class="selectOption" id="jsSelectOption" data-value="course">
-                                笔记
+                            <span class="selectOption" id="jsSelectOption" data-value="">
+                                公开最新
                             </span>
                             <ul class="selectMenu" id="jsSelectMenu">
-                                <li data-value="course">笔记1</li>
-                                <li data-value="org">笔记2</li>
-                                <li data-value="teacher">笔记3</li>
+                                <li data-value="">公开最新</li>
+                                <li data-value="hot">公开最热</li>
+                                <li data-value="private">我的笔记</li>
                             </ul>
                         </div>
                         <input id="search_keywords" class="fl" type="text" value="" placeholder="请输入搜索内容"/>
@@ -76,7 +76,7 @@
 				<div class="nav">
 					<div class="wp">
 						<ul>
-							<li class="active" ><a href="index.html">首页</a></li>
+							<li class="active" ><a href="{% url 'index' %}">首页</a></li>
 							<li >
 								<a href="{% url 'notes:note_list' %}">
 									个人笔记<img class="hot" src="{% static 'images/nav_hot.png' %}">
@@ -150,7 +150,7 @@
 				<ul class="cont">
 					<li class="logo"><a href=""><img src="/static/images/footlogo.png"/></a></li>
 					<li class="code"><img src="/static/images/code.jpg"/><p class="center">扫描关注微信</p></li>
-					<li class="third"><img class="fl" src="/static/images/tell.png"/><p class="tell">33333333</p><p class="time">周一至周日 9:00-18:00</p></li>
+					<li class="third"><img class="fl" src="/static/images/tell.png"/><p class="tell">33333333</p><p class="time">电话</p></li>
 				</ul>
 
 			</div>

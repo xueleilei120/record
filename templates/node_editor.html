@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block title %}笔记详情{% endblock %}
+{% load staticfiles %}
+{% block custom_bread %}
+    <section>
+        <div class="wp">
+            <div class="crumbs">
+                <ul>
+                    <li><a href="{% url 'index' %}">首页</a>></li>
+                    <li><a href="{% url 'notes:note_list' %}">笔记列表</a>></li>
+                    <li>笔记详情</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+{% block content %}
+    <section>
+	<div class="wp">
+		<div class="list groupPurchase_detail_pro">
+			<div class="left layout">
+				<div class="head">
+					<ul class="tab_header">
+						<li class="active">笔记内容</li>
+					</ul>
+				</div>
+				<div class="tab_cont tab_cont1">
+                    <form method="POST" class="post-form" action="" enctype="multipart/form-data">
+                        {{ form | crispy }}
+                        <button class="" type="submit" >提交</button>
+                        {% csrf_token %}
+                    </form>
+
+				</div>
+				<div class="tab_cont tab_cont2" >
+					<div class="comment">
+						<div class="comenlist">
+	                    </div>
+					</div>
+				</div>
+			</div>
+		</div>
+    </div>
+    </section>
+{% endblock %}
+
+
+{% block custom_js %}
+
+    <script type="text/javascript">
+    window.UEDITOR_HOME_URL = "/static/ueditor/";
+    </script>
+      <script type="text/javascript" src="/static/ueditor/ueditor.config.js"></script>
+    <!-- 编辑器源码文件 -->
+    <script type="text/javascript" src="/static/ueditor/ueditor.all.js"></script>
+
+    <script type="text/plain">
+        这里写你的初始化内容
+        </script>
+        <script type="text/javascript">
+          var ue = UE.getEditor('id_content');
+        </script>
+{% endblock %}

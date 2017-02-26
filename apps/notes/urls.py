@@ -7,16 +7,23 @@
 @describe:
 """
 from django.conf.urls import url, include
-from django.conf.urls import url
 
 
-from notes.views import NotesView, NotesDetailView
+from notes.views import NotesView, NotesDetailView, NotesEditorView, NewEditorView
+
 
 urlpatterns = [
-    # 课程列表
+    # 笔记列表
     url(r'^list/$', NotesView.as_view(), name="note_list"),
 
-    # 课程详情
+    # 笔记详情
     url(r'^detail/(?P<note_id>\d+)/$', NotesDetailView.as_view(), name="note_detail"),
+
+    # 编辑
+    url(r'^editor/(?P<note_id>\d+)/$', NotesEditorView.as_view(), name="note_editor"),
+
+    # 增加笔记
+    url(r'^editor/$', NewEditorView.as_view(), name="new_editor"),
+
 
 ]

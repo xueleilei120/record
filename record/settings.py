@@ -45,6 +45,8 @@ INSTALLED_APPS = [
     'users',
     'xadmin',
     'crispy_forms',
+    'DjangoUeditor',
+    'captcha',  # 验证码
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -138,6 +140,14 @@ STATIC_URL = '/static/'
 #     os.path.join(BASE_DIR, 'static'),  # tuble 中只有一个元素的时候必须加一个,
 # )
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
+
+# 邮箱配置
+EMAIL_HOST = "smtp.sina.com"
+EMAIL_PORT = 25
+EMAIL_HOST_USER = "615chaoge@sina.com"
+EMAIL_HOST_PASSWORD = "615chaoge"
+EMAIL_USE_TLS = False
+EMAIL_FROM = "615chaoge@sina.com"
 
 # html 中静态调用图片的根目录
 MEDIA_URL = '/media/'

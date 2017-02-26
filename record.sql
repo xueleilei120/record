@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50625
 File Encoding         : 65001
 
-Date: 2017-02-18 11:19:11
+Date: 2017-02-26 12:39:07
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -62,7 +62,7 @@ CREATE TABLE `auth_permission` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `auth_permission_content_type_id_01ab375a_uniq` (`content_type_id`,`codename`),
   CONSTRAINT `auth_permissi_content_type_id_2f476e4b_fk_django_content_type_id` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=57 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=65 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of auth_permission
@@ -119,6 +119,14 @@ INSERT INTO `auth_permission` VALUES ('53', 'Can add 轮播图', '15', 'add_bann
 INSERT INTO `auth_permission` VALUES ('54', 'Can change 轮播图', '15', 'change_banner');
 INSERT INTO `auth_permission` VALUES ('55', 'Can delete 轮播图', '15', 'delete_banner');
 INSERT INTO `auth_permission` VALUES ('56', 'Can view 轮播图', '15', 'view_banner');
+INSERT INTO `auth_permission` VALUES ('57', 'Can add 邮箱验证码', '16', 'add_emailverifyrecord');
+INSERT INTO `auth_permission` VALUES ('58', 'Can change 邮箱验证码', '16', 'change_emailverifyrecord');
+INSERT INTO `auth_permission` VALUES ('59', 'Can delete 邮箱验证码', '16', 'delete_emailverifyrecord');
+INSERT INTO `auth_permission` VALUES ('60', 'Can view 邮箱验证码', '16', 'view_emailverifyrecord');
+INSERT INTO `auth_permission` VALUES ('61', 'Can add captcha store', '17', 'add_captchastore');
+INSERT INTO `auth_permission` VALUES ('62', 'Can change captcha store', '17', 'change_captchastore');
+INSERT INTO `auth_permission` VALUES ('63', 'Can delete captcha store', '17', 'delete_captchastore');
+INSERT INTO `auth_permission` VALUES ('64', 'Can view captcha store', '17', 'view_captchastore');
 
 -- ----------------------------
 -- Table structure for auth_user
@@ -143,8 +151,8 @@ CREATE TABLE `auth_user` (
 -- ----------------------------
 -- Records of auth_user
 -- ----------------------------
-INSERT INTO `auth_user` VALUES ('1', 'pbkdf2_sha256$24000$RO7KfsmMZHnf$W9v/BXAVuNLA2IZpV2Wnn3EyJ+kK7zCZLHBfME4DDBc=', '2017-02-12 02:03:47.081000', '1', 'liuyc', '', '', '2@qq.com', '1', '1', '2017-02-12 02:03:36.830000');
-INSERT INTO `auth_user` VALUES ('2', 'pbkdf2_sha256$24000$CBtmn5E2t5yh$nFkPQZwAq47frX9iVt7igVwLyodS2t+qVYoF/6tg2eI=', null, '0', 'xueleilei', '', '', '', '0', '1', '2017-02-12 02:04:03.779000');
+INSERT INTO `auth_user` VALUES ('1', 'pbkdf2_sha256$24000$RO7KfsmMZHnf$W9v/BXAVuNLA2IZpV2Wnn3EyJ+kK7zCZLHBfME4DDBc=', '2017-02-12 02:03:47.081000', '1', 'liuyc', '', '', '2@qq.com', '1', '0', '2017-02-12 02:03:36.830000');
+INSERT INTO `auth_user` VALUES ('2', 'pbkdf2_sha256$24000$CBtmn5E2t5yh$nFkPQZwAq47frX9iVt7igVwLyodS2t+qVYoF/6tg2eI=', null, '0', 'xueleilei', '', '', '', '0', '0', '2017-02-12 02:04:03.779000');
 
 -- ----------------------------
 -- Table structure for auth_user_groups
@@ -185,6 +193,24 @@ CREATE TABLE `auth_user_user_permissions` (
 -- ----------------------------
 
 -- ----------------------------
+-- Table structure for captcha_captchastore
+-- ----------------------------
+DROP TABLE IF EXISTS `captcha_captchastore`;
+CREATE TABLE `captcha_captchastore` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `challenge` varchar(32) NOT NULL,
+  `response` varchar(32) NOT NULL,
+  `hashkey` varchar(40) NOT NULL,
+  `expiration` datetime(6) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `hashkey` (`hashkey`)
+) ENGINE=InnoDB AUTO_INCREMENT=79 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of captcha_captchastore
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for django_admin_log
 -- ----------------------------
 DROP TABLE IF EXISTS `django_admin_log`;
@@ -219,7 +245,7 @@ CREATE TABLE `django_content_type` (
   `model` varchar(100) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `django_content_type_app_label_76bd3d3b_uniq` (`app_label`,`model`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of django_content_type
@@ -227,11 +253,13 @@ CREATE TABLE `django_content_type` (
 INSERT INTO `django_content_type` VALUES ('1', 'admin', 'logentry');
 INSERT INTO `django_content_type` VALUES ('3', 'auth', 'group');
 INSERT INTO `django_content_type` VALUES ('2', 'auth', 'permission');
+INSERT INTO `django_content_type` VALUES ('17', 'captcha', 'captchastore');
 INSERT INTO `django_content_type` VALUES ('5', 'contenttypes', 'contenttype');
 INSERT INTO `django_content_type` VALUES ('13', 'notes', 'notes');
 INSERT INTO `django_content_type` VALUES ('14', 'operation', 'usernotes');
 INSERT INTO `django_content_type` VALUES ('6', 'sessions', 'session');
 INSERT INTO `django_content_type` VALUES ('15', 'users', 'banner');
+INSERT INTO `django_content_type` VALUES ('16', 'users', 'emailverifyrecord');
 INSERT INTO `django_content_type` VALUES ('7', 'users', 'userprofile');
 INSERT INTO `django_content_type` VALUES ('8', 'xadmin', 'bookmark');
 INSERT INTO `django_content_type` VALUES ('11', 'xadmin', 'log');
@@ -248,7 +276,7 @@ CREATE TABLE `django_migrations` (
   `name` varchar(255) NOT NULL,
   `applied` datetime(6) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of django_migrations
@@ -272,6 +300,11 @@ INSERT INTO `django_migrations` VALUES ('16', 'operation', '0001_initial', '2017
 INSERT INTO `django_migrations` VALUES ('17', 'operation', '0002_auto_20170212_1335', '2017-02-12 13:35:16.607000');
 INSERT INTO `django_migrations` VALUES ('18', 'users', '0002_banner', '2017-02-18 10:45:36.636000');
 INSERT INTO `django_migrations` VALUES ('19', 'users', '0003_auto_20170218_1100', '2017-02-18 11:00:55.064000');
+INSERT INTO `django_migrations` VALUES ('20', 'notes', '0002_auto_20170219_1656', '2017-02-19 16:56:20.685000');
+INSERT INTO `django_migrations` VALUES ('21', 'notes', '0003_notes_is_private', '2017-02-25 09:29:18.010000');
+INSERT INTO `django_migrations` VALUES ('22', 'notes', '0004_auto_20170225_0934', '2017-02-25 09:34:29.645000');
+INSERT INTO `django_migrations` VALUES ('23', 'captcha', '0001_initial', '2017-02-25 19:33:25.405000');
+INSERT INTO `django_migrations` VALUES ('24', 'users', '0004_emailverifyrecord', '2017-02-25 19:33:25.811000');
 
 -- ----------------------------
 -- Table structure for django_session
@@ -288,7 +321,7 @@ CREATE TABLE `django_session` (
 -- ----------------------------
 -- Records of django_session
 -- ----------------------------
-INSERT INTO `django_session` VALUES ('bq2jpm19fhuxl7lv298vywxmm8qhe1xw', 'YzU4NTc1NjZmOGQzMzgwNTc4YWYxYTg4ZTRmMzg3YWViYzMxNjI5ZDp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiTElTVF9RVUVSWSI6W1sidXNlcnMiLCJiYW5uZXIiXSwiIl0sIl9hdXRoX3VzZXJfaGFzaCI6IjlmYjI1YzZiOWE5MzMwZDg5MDU4M2YyMzUxNmUxZTMzYmJmYjcxMGIiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIndpemFyZF94YWRtaW51c2Vyd2lkZ2V0X2FkbWluX3dpemFyZF9mb3JtX3BsdWdpbiI6eyJzdGVwX2ZpbGVzIjp7fSwic3RlcCI6IldpZGdldFx1N2M3Ylx1NTc4YiIsImV4dHJhX2RhdGEiOnt9LCJzdGVwX2RhdGEiOnt9fX0=', '2017-03-04 11:09:59.324000');
+INSERT INTO `django_session` VALUES ('ilhh3h4pot2f0pkfu0nscc5cl4tr0e5a', 'ZTdjZGE5MmQwZmI1Y2EzMzNjOWM5MjdhNzY3Y2YwOWIwZWNjNmJiYzp7Il9hdXRoX3VzZXJfaGFzaCI6IjlmYjI1YzZiOWE5MzMwZDg5MDU4M2YyMzUxNmUxZTMzYmJmYjcxMGIiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOiIxIn0=', '2017-03-12 12:33:19.206000');
 
 -- ----------------------------
 -- Table structure for notes_notes
@@ -305,14 +338,22 @@ CREATE TABLE `notes_notes` (
   `category` varchar(20) NOT NULL,
   `tag` varchar(21) NOT NULL,
   `add_time` datetime(6) NOT NULL,
+  `author` varchar(20) NOT NULL,
+  `is_public` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of notes_notes
 -- ----------------------------
-INSERT INTO `notes_notes` VALUES ('1', '标题1 科比·布莱恩特', '笔记描述 科比·布莱恩特', '科比是NBA最好的得分手之一，生涯赢得无数奖项[1]  ，突破、投篮、罚球、三分球他都驾轻就熟，几乎没有进攻盲区，单场比赛81分的个人纪录就有力地证明了这一点。除了疯狂的得分外，科比的组织能力也很出众，经常担任球队进攻的第一发起人。另外科比还是联盟中最好的防守人之一，贴身防守非常具有压迫性。', '0', 'notes/2017/02/28431672f0f4711386881cfe614d8e1e.jpg', '0', '笔记类别 nba', '笔记标签 nba', '2017-02-12 10:49:00.000000');
-INSERT INTO `notes_notes` VALUES ('2', '阿伦·艾弗森', '阿伦·艾弗森', '阿伦·艾弗森（Allen Iverson），1975年6月7日出生于美国弗吉尼亚州汉普顿，前美国职业篮球运动员，司职后卫（双能卫），[1]  绰号“答案”（The Answer）[1]  /AI[1]  ，曾任美国男篮梦之队队长[1]  。\r\n阿伦·艾弗森在1996年NBA选秀中于第1轮第1位被费城76人队选中[1]  ，成为NBA状元秀。[1]  在14年的职业生涯中，阿伦·艾弗森[1]  曾效力于76人、掘金、灰熊以及活塞四支NBA球队，[1]  新秀赛季荣获最佳新秀以及新秀挑战赛MVP，[1]  4次荣膺NBA得分王，3次荣膺NBA抢断王[1]  ，2000至2010年[1]  11次入选NBA全明星阵容并夺得2次NBA全明星MVP，[1]  3次入选NBA最佳阵容一阵，[1]  3次入选NBA最佳阵容二阵[1]  ，2006年入选NBA最佳阵容三阵。[1]  2000-2001赛季，艾弗森打出了生涯最好表现，夺得常规赛MVP奖杯，并帮助76队打入NBA总决赛[1]  ，但并未夺冠。[1] \r\n2013年10月30日，阿伦·艾弗森正式宣布退役[1]  。他的NBA生涯均出战41.1分钟，获得26.7分、6.2次助攻和2.2次抢断。[1]  2014年3月1日，艾弗森3号球衣在76人主场对奇才的中场休息时退役。[1] \r\n2016年4月4日，阿伦·艾弗森正式入选2016年奈·史密斯篮球名人纪念堂。[2]', '0', 'notes/2017/02/ad9955e15b95189e865e6d4d03c0a9a5.jpg', '0', '笑话', '22', '2017-02-12 10:52:00.000000');
+INSERT INTO `notes_notes` VALUES ('1', '标题1 科比·布莱恩特', '笔记描述 科比·布莱恩特', '<p>&nbsp; &nbsp; 科比是NBA最好的得分手之一，生涯赢得无数奖项[1] &nbsp;，突破、投篮、罚球、三分球他都驾轻就熟，几乎没有进攻盲区，单场比赛81分的个人纪录就有力地证明了这一点。除了疯狂的得分外，科比的组织能力也很出众，经常担任球队进攻的第一发起人。另外科比还是联盟中最好的防守人之一，贴身防守非常具有压迫性。</p>', '0', 'notes/2017/02/28431672f0f4711386881cfe614d8e1e.jpg', '3', '笔记类别 nba', '笔记标签 nba', '2017-02-12 10:49:00.000000', 'liuyc', '1');
+INSERT INTO `notes_notes` VALUES ('2', '阿伦·艾弗森 2', 'asdf', '<p>&nbsp; &nbsp; 阿伦·艾弗森（Allen Iverson），1975年6月7日出生于美国弗吉尼亚州汉普顿，前美国职业篮球运动员，司职后卫（双能卫），[1] &nbsp;绰号“答案”（The Answer）[1] &nbsp;/AI[1] &nbsp;，曾任美国男篮梦之队队长[1] &nbsp;。\r\n阿伦·艾弗森在1996年NBA选秀中于第1轮第1位被费城76人队选中[1] &nbsp;，成为NBA状元秀。[1] &nbsp;在14年的职业生涯中，阿伦·艾弗森[1] &nbsp;曾效力于76人、掘金、灰熊以及活塞四支NBA球队，[1] &nbsp;新秀赛季荣获最佳新秀以及新秀挑战赛MVP，[1] &nbsp;4次荣膺NBA得分王，3次荣膺NBA抢断王[1] &nbsp;，2000至2010年[1] &nbsp;11次入选NBA全明星阵容并夺得2次NBA全明星MVP，[1] &nbsp;3次入选NBA最佳阵容一阵，[1] &nbsp;3次入选NBA最佳阵容二阵[1] &nbsp;，2006年入选NBA最佳阵容三阵。[1] &nbsp;2000-2001赛季，艾弗森打出了生涯最好表现，夺得常规赛MVP奖杯，并帮助76队打入NBA总决赛[1] &nbsp;，但并未夺冠。[1] \r\n2013年10月30日，阿伦·艾弗森正式宣布退役[1] &nbsp;。他的NBA生涯均出战41.1分钟，获得26.7分、6.2次助攻和2.2次抢断。[1] &nbsp;2014年3月1日，艾弗森3号球衣在76人主场对奇才的中场休息时退役。[1] \r\n2016年4月4日，阿伦·艾弗森正式入选2016年奈·史密斯篮球名人纪念堂。[2]</p><p><img src=\"http://img.baidu.com/hi/jx2/j_0020.gif\"/> </p><p><br/> </p>', '0', 'notes/2017/02/ad9955e15b95189e865e6d4d03c0a9a5.jpg', '0', '笑话 2', '22 2', '2017-02-12 10:52:00.000000', '阿伦作者', '1');
+INSERT INTO `notes_notes` VALUES ('3', '4 添加富文本', '成功', '<p><img src=\"http://img.baidu.com/hi/jx2/j_0020.gif\"/>sha &nbsp;guapi 666</p><p><img class=\"exp-pdp-benefits-image\" src=\"http://images.nike.com/is/image/DotCom/PDP_COPY/705300_024/air-jordan-1-retro-high-bg-E5A48DE588BBE5A4A7E7ABA5E8BF90E58AA8E7ABA5E99E8B.jpg\" data-large-image=\"http://images.nike.com/is/image/DotCom/PDP_COPY/705300_024/air-jordan-1-retro-high-bg-E5A48DE588BBE5A4A7E7ABA5E8BF90E58AA8E7ABA5E99E8B.jpg\" data-small-image=\"http://images.nike.com/is/image/DotCom/PDP_COPY_S/705300_024/air-jordan-1-retro-high-bg-E5A48DE588BBE5A4A7E7ABA5E8BF90E58AA8E7ABA5E99E8B.jpg\" style=\"border: 0px;\"/> </p><p><span style=\"font-family: OneNikeCurrency, Helvetica, Arial, &#39;Heiti SC&#39;, &#39;ST Heiti&#39;, 华文黑体, &#39;Microsoft YaHei&#39;, 雅黑体, SimHei, 黑体, sans-serif; font-size: 0px; line-height: 18px; text-align: center; background-color: rgb(255, 255, 255);\">&nbsp;</span></p><p style=\"margin-top: 0px; margin-bottom: 0px; padding: 0px;\"><strong class=\"nsg-font-family--platform\" style=\"font-family: OneNikeCurrency, &#39;TradeGothicW01-BoldCn20 675334&#39;, Helvetica, Arial, &#39;Heiti SC&#39;, &#39;ST Heiti&#39;, 华文黑体, &#39;Microsoft YaHei&#39;, 雅黑体, SimHei, 黑体, sans-serif; font-size: 34px; text-transform: uppercase; letter-spacing: -1px; color: rgb(51, 51, 51); padding-top: 0px; padding-bottom: 12px; display: inline-block; line-height: 34px; margin-bottom: 4px;\">革新演绎经典篮球造型</strong></p><p style=\"margin-top: 0px; margin-bottom: 0px; padding: 0px;\">Air Jordan 1 Retro High BG 复刻大童运动童鞋采用经典外观设计，同时承袭令元年款声名鹊起的轻盈舒适质感。组合鞋面搭配缓震耐磨结构，塑就出色运动风范与舒适脚感。</p><p style=\"margin-top: 0px; margin-bottom: 0px; padding: 0px;\"><span class=\"nsg-font-family--platform\" style=\"font-family: OneNikeCurrency, &#39;TradeGothicW01-BoldCn20 675334&#39;, Helvetica, Arial, &#39;Heiti SC&#39;, &#39;ST Heiti&#39;, 华文黑体, &#39;Microsoft YaHei&#39;, 雅黑体, SimHei, 黑体, sans-serif; font-size: 20px; text-transform: uppercase; letter-spacing: -1px; color: rgb(51, 51, 51); padding-top: 22px; padding-bottom: 12px; display: inline-block;\">其他细节</span></p><ul style=\"list-style-type: none;\" class=\" list-paddingleft-2\"><li><p>全粒面皮革与合成革组合鞋面，具备出色运动风范与耐磨性</p></li><li><p>硬质橡胶包边外底搭载后跟内嵌式 Air-Sole 气垫，实现出众的缓震效果</p></li><li><p>硬质橡胶外底融入弯曲凹槽和圆形底纹设计，缔造出色灵活性和抓地力，经久耐磨</p></li></ul><p style=\"margin-top: 0px; margin-bottom: 0px; padding: 0px;\">产品信息描述以705300-024产品为参照，实物的具体信息若与参照物和网站产品图片有出入，请以实物为准。如有其它疑问，请联系我们</p><p><br/> </p>', '0', 'notes/2017/02/581506c065425e786e8ae37eb646ac6d.jpg', '2', '2', '篮球', '2017-02-19 13:32:00.000000', '张作者', '1');
+INSERT INTO `notes_notes` VALUES ('4', 't', 't', '<p>t</p>', '0', 'notes/2017/02/0721dac025cb13b5eb332f084725cac5_0675gqp.jpeg', '4', '笑话', 't', '2017-02-24 23:48:47.858000', 'liuyc', '0');
+INSERT INTO `notes_notes` VALUES ('5', '35号球衣的来由，杜兰特恩师的故事', '35号球衣的来由，杜兰特恩师的故事', '<p style=\"border: 0px; margin-top: 0px; margin-bottom: 0px; padding: 26px 0px 0px; font-size: 14px; font-family: 宋体; line-height: 26px; white-space: normal; background-color: rgb(255, 255, 255);\">　当查尔斯-克雷格教练相中杜兰特，并且愿意训练他的时候，妈妈完达-杜兰特并没有觉得她的孩子已经选好了人生道路，天哪，这只不顾是一个无名教练的偶然相遇，拍着杜兰特的脑袋说这孩子骨骼清奇而已。</p><p style=\"border: 0px; margin-top: 0px; margin-bottom: 0px; padding: 26px 0px 0px; font-size: 14px; font-family: 宋体; line-height: 26px; white-space: normal; background-color: rgb(255, 255, 255);\">　　梦想毕竟是梦想，当时的杜兰特除了长得高一点以外的资本为0，完达-杜兰特觉得，篮球毕竟可以帮助杜兰特找到一些生活的乐趣，锻炼身体保持健康，和本分的孩子们在一起完成团队的运动，最主要的是——这起码可以帮助他远离那些可怕的暴力街区。</p><p style=\"border: 0px; margin-top: 0px; margin-bottom: 0px; padding: 26px 0px 0px; font-size: 14px; font-family: 宋体; line-height: 26px; white-space: normal; background-color: rgb(255, 255, 255);\">　　在那位不知名的路人阿姨观看他比赛，并且把他和伟大的迈克尔相提并论之后，杜兰特欢呼雀跃，带着这个传说和自己的比赛数据单回到家中，在母亲、祖母和派尔阿姨面前手舞足蹈，把数据单挥舞得像风车一样，炫耀自己人生的第一场真正胜利，并骄傲地告诉大家“有人说我打球像迈克尔！”</p><p style=\"border: 0px; margin-top: 0px; margin-bottom: 0px; padding: 26px 0px 0px; font-size: 14px; font-family: 宋体; line-height: 26px; white-space: normal; background-color: rgb(255, 255, 255);\">　　<img src=\"http://img.mp.itc.cn/upload/20170224/d19ac027522b4e43879a79d1e5f7e3b0_th.jpeg\" img_width=\"943\" img_height=\"563\" style=\"border: 0px; margin: 0px; padding: 0px; font-size: 0px; color: transparent;\"/></p><p style=\"border: 0px; margin-top: 0px; margin-bottom: 0px; padding: 26px 0px 0px; font-size: 14px; font-family: 宋体; line-height: 26px; white-space: normal; background-color: rgb(255, 255, 255);\">　　完达这时候才发现——或许，篮球真的是他的未来。11岁的儿子对她说：“妈妈，我将来要打NBA.”</p><p style=\"border: 0px; margin-top: 0px; margin-bottom: 0px; padding: 26px 0px 0px; font-size: 14px; font-family: 宋体; line-height: 26px; white-space: normal; background-color: rgb(255, 255, 255);\">　　她把凯文的一切都托付给克雷格教练了，查尔斯-克雷格当时不过是休闲中心的一个青年业余教练，他主要的工作就是教孩子们玩耍之余练练篮球。当他慧眼如炬发现了杜兰特之后，生活的重心便向这个高高瘦瘦的男孩子身上倾斜了，他在教别的孩子玩耍之余，总会抽时间给杜兰特开开小灶，教他一些篮球的基本功和基本规则。</p><p style=\"border: 0px; margin-top: 0px; margin-bottom: 0px; padding: 26px 0px 0px; font-size: 14px; font-family: 宋体; line-height: 26px; white-space: normal; background-color: rgb(255, 255, 255);\">　　克雷格对杜兰特最大的意义不在于篮球的技战术上，而在于这位好心的教练总是鼓励他，告诉他终有一天小凯文会成为NBA的一位巨星。克雷格还是一位充满爱心的人，他对所有孩子一视同仁，广泛地种下梦想的种子。</p><p style=\"border: 0px; margin-top: 0px; margin-bottom: 0px; padding: 26px 0px 0px; font-size: 14px; font-family: 宋体; line-height: 26px; white-space: normal; background-color: rgb(255, 255, 255);\">　　“我总是在他那里度过一整天，”杜兰特说到，他们一起玩篮球游戏一起看电影。当杜兰特需要零花钱或者是吃饭的时候，都是在克雷格那里。杜兰特现在是千万身价，但是他经常会开着车去那个郊区寻找童年的美好回忆。</p><p style=\"border: 0px; margin-top: 0px; margin-bottom: 0px; padding: 26px 0px 0px; font-size: 14px; font-family: 宋体; line-height: 26px; white-space: normal; background-color: rgb(255, 255, 255);\">　　还记得有一次，杜兰特跟着青年联盟队到北卡罗来纳州打完比赛后，由于母亲忙于工作无暇顾及，杜兰特就睡在了克雷格教练家中。克雷格教练经常拿出自己的钱来给那些孩子买球衣，正如一位家长说的：“他让每个孩子都觉得自己是明星，他是一位与众不同的教练，即使你输了，他也让你感觉到不算什么。”克雷格教练和杜兰特之间，早已超越了一般教练和学生之间的感情。</p><p style=\"border: 0px; margin-top: 0px; margin-bottom: 0px; padding: 26px 0px 0px; font-size: 14px; font-family: 宋体; line-height: 26px; white-space: normal; background-color: rgb(255, 255, 255);\">　　<img src=\"http://img.mp.itc.cn/upload/20170224/379801b29d4b42d4b340250bdba9fe1d_th.jpeg\" img_width=\"1920\" img_height=\"1080\" style=\"border: 0px; margin: 0px; padding: 0px; font-size: 0px; color: transparent;\"/></p><p style=\"border: 0px; margin-top: 0px; margin-bottom: 0px; padding: 26px 0px 0px; font-size: 14px; font-family: 宋体; line-height: 26px; white-space: normal; background-color: rgb(255, 255, 255);\">　　有一个场景令杜兰特最难以忘怀，那是一个温馨的小房间，杜兰特和克雷格教练、以及第二位教练塔拉斯-布朗坐在一起看电视，电视里直播的是万众瞩目的NBA选秀，看着满屏幕的星光熠熠、状元郎的神采飞扬，杜兰特的梦想前所未有的炽热，他激动地和两位教练定下约定：“有一天，我参加NBA选秀了，你们要到现场去，坐在小绿屋里陪伴我。”两位恩师慨然允诺。</p><p style=\"border: 0px; margin-top: 0px; margin-bottom: 0px; padding: 26px 0px 0px; font-size: 14px; font-family: 宋体; line-height: 26px; white-space: normal; background-color: rgb(255, 255, 255);\">　　当年这只是一句孩子话，谁也没有想到杜兰特会说到做到梦想成真。然而，2007年，杜兰特作为榜眼秀被超音速选中时，陪伴在身边的只有塔拉斯-布朗教练，而他最先的伯乐，篮球的启蒙者和领路人——查尔斯-克雷格永远地失约了。</p><p style=\"border: 0px; margin-top: 0px; margin-bottom: 0px; padding: 26px 0px 0px; font-size: 14px; font-family: 宋体; line-height: 26px; white-space: normal; background-color: rgb(255, 255, 255);\">　　2005年 4月30日，高二的杜兰特带领橡树山高中打比赛的时候，噩耗传来，查尔斯-克雷格在马里兰被枪杀了，当时他只是走出户外试图调解朋友和别人的争执，但那个该死的混蛋，冲他的后背连开数枪……</p><p style=\"border: 0px; margin-top: 0px; margin-bottom: 0px; padding: 26px 0px 0px; font-size: 14px; font-family: 宋体; line-height: 26px; white-space: normal; background-color: rgb(255, 255, 255);\">　　直到现在杜兰特仍然不知道当时到底发生了什么，他听说，克雷格的朋友在公寓外和别人发生了争执，这位好人试图排解纷争，当争吵平息后几个小时后，突然响起了枪声，克雷格倒在血泊中，当被送入医院后被宣布当场死亡。据警方的记录，克雷格上半身被击中数枪，这位青年教练才刚满35岁。</p><p style=\"border: 0px; margin-top: 0px; margin-bottom: 0px; padding: 26px 0px 0px; font-size: 14px; font-family: 宋体; line-height: 26px; white-space: normal; background-color: rgb(255, 255, 255);\">　　这是一个晴天霹雳，当时杜兰特正准备带领着橡树山高中备战弗吉尼亚州高中的比赛，听到这消息后，杜兰特几乎休克过去。“我不知道该如何去想象，”杜兰特说。“我以为只是一个玩笑，一个活生生的人，就这样没了，他没有理由死的。”</p><p style=\"border: 0px; margin-top: 0px; margin-bottom: 0px; padding: 26px 0px 0px; font-size: 14px; font-family: 宋体; line-height: 26px; white-space: normal; background-color: rgb(255, 255, 255);\">　　5年后，来到德克萨斯大学打球后，他选择了35号球衣来纪念克雷格教练。“我只是想让大家知道我为什么穿35号的原因，以及这个背号后面所包含的意义。”杜兰特说。“只要我穿着35号，他就还活着。”</p><p style=\"border: 0px; margin-top: 0px; margin-bottom: 0px; padding: 26px 0px 0px; font-size: 14px; font-family: 宋体; line-height: 26px; white-space: normal; background-color: rgb(255, 255, 255);\">　　<img src=\"http://img.mp.itc.cn/upload/20170224/4c22ebf1fbed4e3ab157f96abf199e01_th.jpeg\" img_width=\"750\" img_height=\"1094\" style=\"border: 0px; margin: 0px; padding: 0px; font-size: 0px; color: transparent;\"/></p><p style=\"border: 0px; margin-top: 0px; margin-bottom: 0px; padding: 26px 0px 0px; font-size: 14px; font-family: 宋体; line-height: 26px; white-space: normal; background-color: rgb(255, 255, 255);\">　　人的一生如此短暂，得到什么失去什么只有自己知道，总有一天，你所珍爱的一切都会离你而去，比如克雷格教练，比如派尔阿姨（杜兰特曾眼睁睁看着他亲爱的派尔阿姨癌症发作，呕着血离他而去）。</p><p style=\"border: 0px; margin-top: 0px; margin-bottom: 0px; padding: 26px 0px 0px; font-size: 14px; font-family: 宋体; line-height: 26px; white-space: normal; background-color: rgb(255, 255, 255);\">　　今天的杜兰特提到此事依旧泪眼婆娑，“这对于我来说是一个敏感的问题，但我只是想为他做点什么。” 2007杜兰特在参选前被问及为什么会穿35号，他坚定的回答：“因为纪念我的第一位教练”；2008年当杜兰特拿到最佳新秀的那一天，他略带伤感的说道：“今天是克雷格教练去世三周年的祭日。我想把这个荣誉献给他，我想让他知道我一直在努力着。”</p><p style=\"border: 0px; margin-top: 0px; margin-bottom: 0px; padding: 26px 0px 0px; font-size: 14px; font-family: 宋体; line-height: 26px; white-space: normal; background-color: rgb(255, 255, 255);\">　　当他戴上榜眼的帽子，举起最佳新秀的奖杯，捧起得分王的奖杯，直到拿着MVP的黄铜小人泪如雨下的时候，克雷格教练终究是见不到了，留下的只有球场上飞舞的35号球衣。</p><p><br/></p>', '0', 'notes/2017/02/4c22ebf1fbed4e3ab157f96abf199e01_th.jpeg', '15', '篮球', '篮球', '2017-02-25 00:06:53.524000', 'liuyc', '1');
+INSERT INTO `notes_notes` VALUES ('6', '0', '0', '<p>0</p>', '0', 'notes/2017/02/9de3fb2bd2aad2d8ff4c8604241ce355.jpg', '5', '笑话', '0', '2017-02-25 12:38:12.915000', 'AnonymousUser', '1');
+INSERT INTO `notes_notes` VALUES ('7', '5', '5', '<p>5</p>', '0', 'notes/2017/02/u2010096343999898114fm21gp0.jpg', '0', '笑话', '5', '2017-02-25 17:35:06.762000', 'liuyc', '1');
+INSERT INTO `notes_notes` VALUES ('8', '6', '6', '<p>6<br/></p>', '0', 'notes/2017/02/d0a7a9410aee402376528def1bf0bb09.jpg', '1', '笑话', '6', '2017-02-25 17:35:26.739000', 'liuyc', '1');
 
 -- ----------------------------
 -- Table structure for operation_usernotes
@@ -328,13 +369,14 @@ CREATE TABLE `operation_usernotes` (
   KEY `operation_usernotes_note_id_7a4fdcf0_fk_notes_notes_id` (`note_id`),
   CONSTRAINT `operation_usernotes_note_id_7a4fdcf0_fk_notes_notes_id` FOREIGN KEY (`note_id`) REFERENCES `notes_notes` (`id`),
   CONSTRAINT `operation_usernotes_user_id_19ee814f_fk_users_userprofile_id` FOREIGN KEY (`user_id`) REFERENCES `users_userprofile` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of operation_usernotes
 -- ----------------------------
 INSERT INTO `operation_usernotes` VALUES ('1', '2017-02-12 13:35:00.000000', '1', '1');
 INSERT INTO `operation_usernotes` VALUES ('2', '2017-02-12 13:36:00.000000', '2', '1');
+INSERT INTO `operation_usernotes` VALUES ('3', '2017-02-19 13:41:00.000000', '3', '1');
 
 -- ----------------------------
 -- Table structure for users_banner
@@ -348,7 +390,7 @@ CREATE TABLE `users_banner` (
   `index` int(11) NOT NULL,
   `add_time` datetime(6) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of users_banner
@@ -356,6 +398,27 @@ CREATE TABLE `users_banner` (
 INSERT INTO `users_banner` VALUES ('1', '1', 'banner/2017/02/28431672f0f4711386881cfe614d8e1e.jpg', 'http://baike.baidu.com/link?url=K1JPbZHdZNqV5f0V1xgVVd9I2TBPggZkDJEx0DjJbBtnC4-z2ZRpG2OgLLzQJIB34mDf3t0pT31apG0WS1t18GpWqh4iAC6eligWKQsEYByCsNc8siFYdlR2yhU1KKuw3SLKTK1jokukbq1kiZgujXn0XP8iyYa3FZG2fp75', '1', '2017-02-18 10:54:00.000000');
 INSERT INTO `users_banner` VALUES ('2', '2', 'banner/2017/02/473528c5781fad9800e77e64939e9ac1.jpg', 'https://image.baidu.com/search/index?tn=baiduimage&ct=201326592&lm=-1&cl=2&ie=gbk&word=%CD%FE%C9%D9&fr=ala&ori_query=%E5%A8%81%E5%B0%91&ala=0&alatpl=sp&pos=0&hs=2&xthttps=111111', '2', '2017-02-18 10:56:00.000000');
 INSERT INTO `users_banner` VALUES ('3', '3', 'banner/2017/02/ad9955e15b95189e865e6d4d03c0a9a5.jpg', 'http://baike.baidu.com/link?url=K2tQ2jOzOWCAEpLrNDRO64NuniO2IIuFAxK5LRJ9_HC0GMup1y4izNvnn4v4gfAZwJ0QlxuUBj3DOA-MUHJ4sLtsvgRJxbcVeNa9HtIUeK58nvsyeQ6hvUzgC_d_y6GMDaUyk1Nqx2K-8k9Th4Ky9gilRyiU1dMgg1N0oF4L', '3', '2017-02-18 11:03:00.000000');
+INSERT INTO `users_banner` VALUES ('4', '35号球衣的来由，杜兰特恩师的故事', 'banner/2017/02/4c22ebf1fbed4e3ab157f96abf199e01_th.jpeg', 'http://sports.sohu.com/20170224/n481670085.shtml', '0', '2017-02-25 00:08:00.000000');
+
+-- ----------------------------
+-- Table structure for users_emailverifyrecord
+-- ----------------------------
+DROP TABLE IF EXISTS `users_emailverifyrecord`;
+CREATE TABLE `users_emailverifyrecord` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `code` varchar(20) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `send_type` varchar(10) NOT NULL,
+  `send_time` datetime(6) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of users_emailverifyrecord
+-- ----------------------------
+INSERT INTO `users_emailverifyrecord` VALUES ('1', 'ERDG596mno0UEIwU', '3@qq.com', 'register', '2017-02-25 19:34:25.006000');
+INSERT INTO `users_emailverifyrecord` VALUES ('2', 'cUvd9eDHm4qQ9jRg', '4@qq.com', 'register', '2017-02-25 19:59:31.050000');
+INSERT INTO `users_emailverifyrecord` VALUES ('3', 'c7AW4iVy8Uj5WHeG', '5@qq.com', 'register', '2017-02-26 12:19:11.518000');
 
 -- ----------------------------
 -- Table structure for users_userprofile
@@ -381,13 +444,16 @@ CREATE TABLE `users_userprofile` (
   `image` varchar(100) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of users_userprofile
 -- ----------------------------
-INSERT INTO `users_userprofile` VALUES ('1', 'pbkdf2_sha256$24000$SijdQyTVlex9$zg2ds/BLFGPHlo9EDjNrrFhV4hlnWe1dujr+r+3pJjo=', '2017-02-18 10:07:25.320000', '1', 'liuyc', '永超', '刘', '290484002@qq.com', '1', '1', '2017-02-12 02:11:00.000000', '小刘', '2017-02-01', 'male', '仅以一村', '13584870659', 'images/2017/02/34deb8368f6290036f3d97a972f204bc_DchbX3F.jpg');
-INSERT INTO `users_userprofile` VALUES ('2', 'pbkdf2_sha256$24000$JMiMYykLKGbu$jCRgKnrOFgIghXknvMRFvKdRtdW5/PpALWIJMtoj64A=', '2017-02-13 23:24:09.310000', '0', 'xueleilei', '蕾蕾', '薛', '2@qq.com', '1', '1', '2017-02-12 19:57:00.000000', '小雪', '2017-02-12', 'female', '学家村', '13584870659', 'images/2017/02/73d2d9c3c1fc56daf97f9218e0c04523.jpg');
+INSERT INTO `users_userprofile` VALUES ('1', 'pbkdf2_sha256$24000$SijdQyTVlex9$zg2ds/BLFGPHlo9EDjNrrFhV4hlnWe1dujr+r+3pJjo=', '2017-02-26 12:33:19.156000', '1', 'liuyc', '永超', '刘', '290484002@qq.com', '1', '1', '2017-02-12 02:11:00.000000', '小刘', '2016-02-01', 'male', '仅以一村4', '1358487000', 'images/2017/02/2e1c79babe2a193b90338211d9176a3c_0g68gpy.jpg');
+INSERT INTO `users_userprofile` VALUES ('2', 'pbkdf2_sha256$24000$JMiMYykLKGbu$jCRgKnrOFgIghXknvMRFvKdRtdW5/PpALWIJMtoj64A=', '2017-02-26 12:18:41.572000', '0', 'xueleilei', '蕾蕾', '薛', '2@qq.com', '0', '0', '2017-02-12 19:57:00.000000', '小雪', '2017-02-12', 'female', '学家村', '13584870659', 'images/2017/02/73d2d9c3c1fc56daf97f9218e0c04523.jpg');
+INSERT INTO `users_userprofile` VALUES ('3', 'pbkdf2_sha256$24000$mfMskRJDdYIr$uW6FeRg7DNuOcAkDAGDXONpbHNP+uxxXF3DJnuGvpNY=', null, '0', '3@qq.com', '', '', '3@qq.com', '0', '0', '2017-02-25 19:34:24.854000', '', null, 'female', '', null, 'images/default.png');
+INSERT INTO `users_userprofile` VALUES ('4', 'pbkdf2_sha256$24000$Ql584F6nCwcF$OQP1ECbOq7Asm4Vb4Xo5gSOCUWSDSrn+pmjumNlVWyw=', '2017-02-25 20:05:45.765000', '0', '4@qq.com', '', '', '4@qq.com', '0', '0', '2017-02-25 19:59:30.963000', '', null, 'female', '', null, 'images/default.png');
+INSERT INTO `users_userprofile` VALUES ('5', 'pbkdf2_sha256$24000$Cu5oqGZWhiLd$C9X03cDPtdhb/irkDaYtKuJ9K7xD63KL+xw9PrPbOZ0=', '2017-02-26 12:19:24.651000', '0', '5@qq.com', '', '', '5@qq.com', '0', '0', '2017-02-26 12:19:11.456000', '55555', '2017-02-01', 'female', '5555', '1358487065', 'images/2017/02/c64f300b8efd92810747eecb99f0ddcc.jpg');
 
 -- ----------------------------
 -- Table structure for users_userprofile_groups
@@ -566,7 +632,7 @@ CREATE TABLE `xadmin_log` (
   KEY `xadmin_log_user_id_bb16a176_fk_users_userprofile_id` (`user_id`),
   CONSTRAINT `xadmin_log_content_type_id_2a6cb852_fk_django_content_type_id` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`),
   CONSTRAINT `xadmin_log_user_id_bb16a176_fk_users_userprofile_id` FOREIGN KEY (`user_id`) REFERENCES `users_userprofile` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of xadmin_log
@@ -592,6 +658,14 @@ INSERT INTO `xadmin_log` VALUES ('18', '2017-02-18 11:04:11.914000', '127.0.0.1'
 INSERT INTO `xadmin_log` VALUES ('19', '2017-02-18 11:05:04.559000', '127.0.0.1', '2', '2', 'change', '已修改 url 和 index 。', '15', '1');
 INSERT INTO `xadmin_log` VALUES ('20', '2017-02-18 11:05:09.962000', '127.0.0.1', '3', '3', 'change', '已修改 index 。', '15', '1');
 INSERT INTO `xadmin_log` VALUES ('21', '2017-02-18 11:05:13.345000', '127.0.0.1', '1', '1', 'change', '没有字段被修改。', '15', '1');
+INSERT INTO `xadmin_log` VALUES ('22', '2017-02-19 13:40:03.623000', '127.0.0.1', '3', 'Notes object', 'create', '已添加。', '13', '1');
+INSERT INTO `xadmin_log` VALUES ('23', '2017-02-19 13:41:18.498000', '127.0.0.1', '3', 'UserNotes object', 'create', '已添加。', '14', '1');
+INSERT INTO `xadmin_log` VALUES ('24', '2017-02-19 17:00:24.848000', '127.0.0.1', '3', '4 添加富文本', 'change', '已修改 author 和 content 。', '13', '1');
+INSERT INTO `xadmin_log` VALUES ('25', '2017-02-19 17:00:37.512000', '127.0.0.1', '2', '阿伦·艾弗森', 'change', '已修改 author 和 content 。', '13', '1');
+INSERT INTO `xadmin_log` VALUES ('26', '2017-02-19 17:00:45.689000', '127.0.0.1', '1', '标题1 科比·布莱恩特', 'change', '已修改 author 和 content 。', '13', '1');
+INSERT INTO `xadmin_log` VALUES ('27', '2017-02-20 22:53:16.089000', '127.0.0.1', '3', '4 添加富文本', 'change', '已修改 image 。', '13', '1');
+INSERT INTO `xadmin_log` VALUES ('28', '2017-02-22 22:50:08.569000', '127.0.0.1', '2', 'xueleilei', 'change', '已修改 last_login 和 is_staff 。', '7', '2');
+INSERT INTO `xadmin_log` VALUES ('29', '2017-02-25 00:08:56.368000', '127.0.0.1', '4', '35号球衣的来由，杜兰特恩师的故事', 'create', '已添加。', '15', '1');
 
 -- ----------------------------
 -- Table structure for xadmin_usersettings

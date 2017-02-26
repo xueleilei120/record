@@ -14,11 +14,13 @@ from .models import Notes
 
 class NotesAdmin(object):
     # 后台中点击邮箱验证码 要显示的字段
-    list_display = ['name','desc', 'content','fav_nums', 'click_nums', 'add_time']
+    list_display = ['name', 'author', 'desc', 'content','fav_nums', 'click_nums', 'add_time']
     # 后台要搜索的字段
-    search_fields = ['name','desc', 'content','fav_nums', 'click_nums', 'add_time']
+    search_fields = ['name', 'author', 'desc', 'content','fav_nums', 'click_nums', 'add_time']
     # 后台过滤器
-    list_filter = ['name','desc', 'content','fav_nums', 'click_nums', 'add_time']
+    list_filter = ['name', 'desc', 'author', 'content','fav_nums', 'click_nums', 'add_time']
+
+    style_fields = {"content": "ueditor"}
 
 
 xadmin.site.register(Notes, NotesAdmin)

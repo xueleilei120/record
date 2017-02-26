@@ -39,6 +39,9 @@
 							<div class="btn colectgroupbtn"  id="jsLeftBtn">
                                   {% if has_fav_course %}已收藏{% else %}收藏{% endif %}
                             </div>
+                            <div class="buy btn">
+                                <a style="color: white" href="{% url 'notes:note_editor' note.id %}" >编辑</a>
+                            </div>
 						</div>
 					</div>
                     <div class="group-share-box">
@@ -61,11 +64,11 @@
 				<div class="right">
 					<div class="head">
 						<h1>作者</h1>
-						<p>{{ note.get_user.user.username }}</p>
+						<p>{{ note.author }}</p>
 					</div>
 					<div class="pic">
                         <a href="/company/14/">
-                            <img width="150" height="80" src="{{ MEDIA_URL }}{{ note.get_user.user.image }} "/>
+                            <img width="150" height="80" src="{{ MEDIA_URL }}{{ note.author }} "/>
                         </a>
                     </div>
 					<a href="/company/14/">
@@ -75,6 +78,7 @@
 					     "data-favid="14" id="jsRightBtn">
                         {% if has_fav_org %}已收藏{% else %}收藏{% endif %}
                     </div>
+
 					<div class="clear">
 						<ul>
                             <li>
@@ -102,13 +106,15 @@
 			<div class="left layout">
 				<div class="head">
 					<ul class="tab_header">
-						<li class="active">笔记详情</li>
+						<li class="active">笔记内容</li>
 					</ul>
 				</div>
 				<div class="tab_cont tab_cont1">
 
 					<p>&nbsp; &nbsp;{{ note.name }}</p>
+                    {% autoescape off %}
                     <p>&nbsp; &nbsp;{{ note.content }}</p>
+                    {% endautoescape %}
 
 				</div>
 				<div class="tab_cont tab_cont2" >
@@ -183,4 +189,5 @@ function add_fav(current_elem, fav_id, fav_type){
     add_fav($(this), {{ course.course_org.id }}, 2);
 });
     </script>>
+
 {% endblock %}
