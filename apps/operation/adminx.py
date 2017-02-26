@@ -8,14 +8,14 @@
 """
 import xadmin
 
-
-from .models import UserNotes
-
-
-class UserNotesAdmin(object):
-    list_display = ['user', 'note', 'add_time']
-    search_fields = ['user', 'note']
-    list_filter = ['user', 'note', 'add_time']
-
-
-xadmin.site.register(UserNotes, UserNotesAdmin)
+#
+# from .models import UserNotes
+#
+#
+# class UserNotesAdmin(object):
+#     list_display = ['user', 'note', 'add_time']
+#     search_fields = ['user', 'note']
+#     list_filter = ['user', 'note', 'add_time']
+#
+#
+# xadmin.site.register(UserNotes, UserNotesAdmin)

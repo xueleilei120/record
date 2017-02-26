@@ -4,12 +4,13 @@ from datetime import datetime
 
 from django.db import models
 from DjangoUeditor.models import UEditorField
+from users.models import UserProfile
 
 # Create your models here.
 
 
 class Notes(models.Model):
-    author = models.CharField(max_length=20, verbose_name=u"作者", default='')
+    author = models.ForeignKey(UserProfile, verbose_name=u"用户")
     name = models.CharField(max_length=200, verbose_name=u"标题")
     desc = models.CharField(max_length=300, verbose_name=u"笔记描述")
     content = UEditorField(verbose_name=u'笔记内容', width=600, height=300,
